@@ -37,7 +37,7 @@ services:
     networks:
       - php-network
   php:
-    image: php:7-fpm
+    image: payano/php-fpm-mysql
     volumes:
         - ./php:/php
     networks:
