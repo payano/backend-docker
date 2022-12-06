@@ -30,14 +30,39 @@ class SerializeDB implements Serialize {
         return $this->mysqli->query($query);
     }
     public function Read(SerializeData &$data) : array {
+        $ret = array();
+        $query;
+    
+        if($data->id > 0) 
+            $query = "SELECT id, book_name, ISBN, rating FROM backend WHERE id = \"$data->id\" ORDER BY id";
+        else
+            $query = "SELECT id, book_name, ISBN, rating FROM backend ORDER BY id";
+            
+        $result = $this->mysqli->query($query);
 
+        while ($row = $result->fetch_assoc()) {
+            $item = new SerializeData();
+            $item->id = (int)$row["id"];
+            $item->book_name = (string)$row["book_name"];
+            $item->ISBN = (string)$row["ISBN"];
+            $item->rating = (float)$row["rating"];
+            array_push($ret, $item);
+        }
+        return $ret;
     }
     public function Update(SerializeData &$data) : bool {
-
+        $query = "UPDATE $this->db SET 
+                  book_name = \"$data->book_name\",
+                  ISBN = \"$data->ISBN\",
+                  rating = \"$data->rating\"                
+                  WHERE id = $data->id";
+        $this->mysqli->query($query);
+        return $this->mysqli->affected_rows >= 1 ? true : false;
     }
-    public function Delete(SerializeData &$data) : bool{
+    public function Delete(SerializeData &$data) : bool {
         $query = "DELETE FROM $this->db WHERE id = $data->id";
-        return $this->mysqli->query($query);
+        $this->mysqli->query($query);
+        return $this->mysqli->affected_rows >= 1 ? true : false;
     }
 }
 
