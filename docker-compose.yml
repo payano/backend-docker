@@ -5,7 +5,6 @@ services:
   db:
     image: mariadb
     container_name: db
-    restart: always
     volumes:
       - "./mysql:/var/lib/mysql"
     environment:
@@ -24,13 +23,13 @@ services:
       PMA_HOST: db
       PMA_PORT: 3306
       PMA_ARBITRARY: 1
-    restart: always
     ports:
       - 8081:80
     networks:
       - backend-network
   web:
     image: nginx:latest
+    container_name: web
     ports:
       - "8080:80"
     volumes:
@@ -46,6 +45,22 @@ services:
         - ./php:/php
     networks:
       - backend-network
+  react:
+    image: "node:16"
+    user: "node"
+    container_name: react
+    working_dir: /home/node/app
+    volumes:
+      - ./react-frontend:/home/node/app
+    ports:
+      - "3000:3000"
+    networks:
+      - backend-network
+    links:
+      - web
+      - php
+    command: "npm start"
+
   mosquitto:
     image: eclipse-mosquitto
     container_name: mosquitto

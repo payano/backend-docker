@@ -50,7 +50,8 @@ Class CrudHandler
     private function Read(array &$json) : void
     {
         $data = new SerializeData();
-        $data->id = isset($json["id"]) ? $json["id"] : -1;
+        //$data->id = isset($json["id"]) ? $json["id"] : -1;
+        $data->id = -1;
         $ret = $this->serialize->Read($data);
         $this->OutputJSONArray($ret);
 
@@ -83,11 +84,12 @@ Class CrudHandler
     }
     public function HandleRequest(string &$rawJson, string &$method) : void
     {
-        $json = json_decode($rawJson, true);
-        if(gettype($json) != "array") {
-            $this->OutputJSONStatus(false);
-            return;
-        }
+        //$json = json_decode($rawJson, true);
+        $json = json_decode("{}", true);
+        //if(gettype($json) != "array") {
+        //    $this->OutputJSONStatus(false);
+        //    return;
+        //}
         switch($method) {
             case "POST":   $this->Create($json); break;
             case "GET":    $this->Read($json);   break;

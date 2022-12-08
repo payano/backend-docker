@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 /* INCLUDES */
 require("CrudHandler.php");
-
+header('Access-Control-Allow-Origin: http://localhost:3000');
 try {
      $crudHandler = new CrudHandler();
      $rawJsonData = file_get_contents('php://input');
