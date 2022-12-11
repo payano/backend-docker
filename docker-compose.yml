@@ -15,19 +15,29 @@ services:
       MYSQL_PASSWORD: changeme
     networks:
       - backend-network
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    container_name: pma
+  adminer:
+    image: adminer
+    container_name: adminer
+    restart: always
+    ports:
+      - 8080:8080
     links:
       - db
-    environment:
-      PMA_HOST: db
-      PMA_PORT: 3306
-      PMA_ARBITRARY: 1
-    ports:
-      - 8081:80
     networks:
       - backend-network
+#  phpmyadmin:
+#    image: phpmyadmin/phpmyadmin
+#    container_name: pma
+#    links:
+#      - db
+#    environment:
+#      PMA_HOST: db
+#      PMA_PORT: 3306
+#      PMA_ARBITRARY: 1
+#    ports:
+#      - "8081:80"
+#    networks:
+#      - backend-network
   web:
     image: nginx:latest
     container_name: web
