@@ -2,5 +2,5 @@
 
 git pull
 docker-compose pull
-docker-compose --remove-orphans
+docker-compose up --remove-orphans
 
