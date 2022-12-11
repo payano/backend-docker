@@ -15,16 +15,17 @@ services:
       MYSQL_PASSWORD: changeme
     networks:
       - backend-network
-  adminer:
-    image: adminer
-    container_name: adminer
-    restart: always
+  phpmyadmin:
+    image: lscr.io/linuxserver/phpmyadmin:latest
+    container_name: pma
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - PMA_HOST=db
+      - PMA_PORT=3306
+      - PMA_ARBITRARY=1
     ports:
-      - 8081:8080
-    links:
-      - db
-    networks:
-      - backend-network
+      - "8081:80"
 #  phpmyadmin:
 #    image: phpmyadmin/phpmyadmin
 #    container_name: pma
