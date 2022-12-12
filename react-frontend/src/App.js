@@ -57,7 +57,7 @@ export default App;
 import axios from "axios";
 import React from "react";
 
-const baseURL = "http://172.21.0.6";
+const baseURL = "http://172.21.0.6/";
 
 export default function App() {
   const [post, setPost] = React.useState(null);
