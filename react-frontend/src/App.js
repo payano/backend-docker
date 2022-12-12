@@ -25,7 +25,7 @@ function App() {
 export default App;
 */
 
-
+/*
 import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
@@ -52,3 +52,28 @@ function App() {
 }
 
 export default App;
+*/
+
+import axios from "axios";
+import React from "react";
+
+const baseURL = "http://172.21.0.6";
+
+export default function App() {
+  const [post, setPost] = React.useState(null);
+
+  React.useEffect(() => {
+    axios.get(baseURL).then((response) => {
+      setPost(response.data);
+    });
+  }, []);
+
+  if (!post) return null;
+  console.log(post)
+  return (
+    <div>
+      <h1>{post.id}</h1>
+      <p>{post.ISBN}</p>
+    </div>
+  );
+}

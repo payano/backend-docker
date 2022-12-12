@@ -3,7 +3,13 @@ declare(strict_types=1);
 
 /* INCLUDES */
 require("CrudHandler.php");
-header('Access-Control-Allow-Origin: http://localhost:3000');
+
+
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: *");
+header("Access-Control-Allow-Headers: *");
+header("Access-Control-Allow-Credentials: true ");
+
 try {
      $crudHandler = new CrudHandler();
      $rawJsonData = file_get_contents('php://input');
@@ -13,4 +19,5 @@ try {
     print("Error: ". $e->getMessage() ." is either missing or wrong type...<br />\r\n" );
 }
 //$c = new Mosquitto\Client;
+
 ?>
