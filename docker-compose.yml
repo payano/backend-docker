@@ -30,8 +30,8 @@ services:
       - backend-network
   web:
     image: nginx:latest
-    container_name: web
-    domainname: web.local
+    container_name: "web"
+    domainname: "web"
     ports:
       - "8080:80"
     volumes:
@@ -49,7 +49,7 @@ services:
     networks:
       - backend-network
   react:
-    image: "node:16"
+    image: "node:18.2.0"
     user: "node"
     container_name: react
     working_dir: /home/node/app
